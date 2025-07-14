@@ -1,9 +1,10 @@
+import { AppProviders } from "./providers/AppProviders";
 import { ChatPanel } from "./components/ChatPanel";
 import "./App.css";
 
 function App() {
   return (
-    <>
+    <AppProviders>
       <ChatPanel />
       <div style={{ marginLeft: "400px", padding: "20px" }}>
         <h1>Overheard Engine</h1>
@@ -16,7 +17,7 @@ function App() {
           chat panel.
         </p>
       </div>
-    </>
+    </AppProviders>
   );
 }
 

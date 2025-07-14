@@ -1,7 +1,9 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Send from "../icons/Send";
 import Microphone from "../icons/Microphone";
 import Paperclip from "../icons/Paperclip";
+import { useChatHistoryContext } from "../context/ChatHistoryContext";
 
 const ChatInputContainer = styled.div`
   display: flex;
@@ -18,6 +20,8 @@ const ChatInputContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   align-self: flex-end;
   gap: 8px;
   margin-top: auto;
@@ -35,6 +39,7 @@ const TextInput = styled.input`
   flex: 1;
   padding: 0;
   margin: 0;
+  width: 100%;
 `;
 
 const SendButton = styled.button`
@@ -48,6 +53,11 @@ const SendButton = styled.button`
   cursor: pointer;
   width: 40px;
   height: 40px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: #0d5aa7;
+  }
 `;
 
 const IconButton = styled.button`
@@ -61,12 +71,40 @@ const IconButton = styled.button`
   cursor: pointer;
   width: 32px;
   height: 32px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: #f5f5f5;
+  }
 `;
 
 export const ChatInput = () => {
+  const [inputValue, setInputValue] = useState("");
+  const { sendMessage } = useChatHistoryContext();
+
+  const handleSendMessage = () => {
+    const trimmedMessage = inputValue.trim();
+    if (trimmedMessage) {
+      sendMessage(trimmedMessage);
+      setInputValue("");
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
+    }
+  };
+
   return (
     <ChatInputContainer>
-      <TextInput type="text" placeholder="Type your message..." />
+      <TextInput
+        type="text"
+        placeholder="Type your message..."
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
       <ButtonContainer>
         <IconButton>
           <Paperclip />
@@ -74,7 +112,7 @@ export const ChatInput = () => {
         <IconButton>
           <Microphone />
         </IconButton>
-        <SendButton>
+        <SendButton onClick={handleSendMessage}>
           <Send />
         </SendButton>
       </ButtonContainer>

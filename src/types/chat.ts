@@ -1,9 +1,7 @@
 export type ChatMessage = {
-  id: string;
-  userMessage: string;
-  timestamp: Date;
+  message: string;
+  isUser: boolean;
   header?: string;
-  response?: string;
   redirectUrl?: string;
   pills?: string[];
   buttons?: {

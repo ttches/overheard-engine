@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ChatInput } from "./ChatInput";
+import { useChatHistoryContext } from "../context/ChatHistoryContext";
 
 const ChatPanelContainer = styled.div`
   position: fixed;
@@ -42,22 +43,18 @@ const MessageBubble = styled.div<{ isUser: boolean }>`
 `;
 
 export const ChatPanel = () => {
+  const { chatHistory } = useChatHistoryContext();
+
   return (
     <ChatPanelContainer>
       <ChatMessages>
-        {/* Placeholder messages for now */}
-        <Message isUser={false}>
-          <MessageBubble isUser={false}>
-            Welcome to Overheard Engine! Start a conversation to control the
-            content.
-          </MessageBubble>
-        </Message>
-
-        <Message isUser={true}>
-          <MessageBubble isUser={true}>
-            Hello! This is a sample user message.
-          </MessageBubble>
-        </Message>
+        {chatHistory.map((chatMessage, index) => (
+          <Message key={index} isUser={chatMessage.isUser}>
+            <MessageBubble isUser={chatMessage.isUser}>
+              {chatMessage.message}
+            </MessageBubble>
+          </Message>
+        ))}
       </ChatMessages>
 
       <ChatInputWrapper>
