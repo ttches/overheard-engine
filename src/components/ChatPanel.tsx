@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { ChatInput } from "./ChatInput";
+import { InitialPrompt } from "./InitialPrompt";
 import { useChatHistoryContext } from "../context/ChatHistoryContext";
 
 const ChatPanelContainer = styled.div`
   position: fixed;
   left: 0;
-  top: 60px;
+  top: 0;
   bottom: 0;
   width: 400px;
   background-color: #106bc7;
@@ -63,6 +64,8 @@ export const ChatPanel = () => {
           </Message>
         ))}
       </ChatMessages>
+
+      {chatHistory.length === 0 && <InitialPrompt />}
 
       <ChatInputWrapper>
         <ChatInput />

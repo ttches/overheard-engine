@@ -4,15 +4,15 @@ import type { ChatMessage } from "../types/chat";
 import type { ChatResponse } from "../api";
 
 const initialMessages: ChatMessage[] = [
-  {
-    message:
-      "Welcome to Overheard Engine! Start a conversation to control the content.",
-    isUser: false,
-  },
-  {
-    message: "Hello! This is a sample user message.",
-    isUser: true,
-  },
+  // {
+  //   message:
+  //     "Welcome to Overheard Engine! Start a conversation to control the content.",
+  //   isUser: false,
+  // },
+  // {
+  //   message: "Hello! This is a sample user message.",
+  //   isUser: true,
+  // },
 ];
 
 export const useChatHistory = () => {
