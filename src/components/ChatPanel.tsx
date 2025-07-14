@@ -30,16 +30,23 @@ const ChatInputWrapper = styled.div`
 const Message = styled.div<{ isUser: boolean }>`
   display: flex;
   justify-content: ${(props) => (props.isUser ? "flex-end" : "flex-start")};
+  width: 100%;
 `;
 
 const MessageBubble = styled.div<{ isUser: boolean }>`
-  max-width: 80%;
-  padding: 12px 16px;
-  border-radius: 18px;
-  background-color: ${(props) => (props.isUser ? "#007bff" : "#f1f3f4")};
-  color: ${(props) => (props.isUser ? "white" : "#333")};
-  font-size: 14px;
-  line-height: 1.4;
+  max-width: ${(props) => (props.isUser ? "300px" : "100%")};
+  display: flex;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: ${(props) => (props.isUser ? "8px" : "0px")};
+  background-color: ${(props) => (props.isUser ? "#0D375E" : "transparent")};
+  color: #fff;
+  text-align: left;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
 `;
 
 export const ChatPanel = () => {
