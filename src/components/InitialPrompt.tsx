@@ -6,7 +6,7 @@ const InitialPromptContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 16px;
+  padding: 24px;
 `;
 
 const WelcomeText = styled.div`

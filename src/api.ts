@@ -16,18 +16,16 @@ export type ChatResponse = {
 };
 
 export const postMessage = async (message: string): Promise<ChatResponse> => {
-  // TODO: Replace with actual API endpoint
-  const response = await fetch("/api/chat", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ message }),
-  });
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
-  if (!response.ok) {
-    throw new Error("Failed to send message");
-  }
+  const loremIpsum =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+  const hasHeader = Math.random() > 0.5;
 
-  return response.json();
+  const mockResponse: ChatResponse = {
+    response: loremIpsum,
+    header: hasHeader ? "Sure thing!" : undefined,
+  };
+
+  return mockResponse;
 };
