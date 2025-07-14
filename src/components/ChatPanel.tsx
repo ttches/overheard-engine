@@ -1,0 +1,68 @@
+import styled from "styled-components";
+import { ChatInput } from "./ChatInput";
+
+const ChatPanelContainer = styled.div`
+  position: fixed;
+  left: 0;
+  top: 60px;
+  bottom: 0;
+  width: 400px;
+  background-color: #106bc7;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ChatMessages = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const ChatInputWrapper = styled.div`
+  padding: 16px;
+`;
+
+const Message = styled.div<{ isUser: boolean }>`
+  display: flex;
+  justify-content: ${(props) => (props.isUser ? "flex-end" : "flex-start")};
+`;
+
+const MessageBubble = styled.div<{ isUser: boolean }>`
+  max-width: 80%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  background-color: ${(props) => (props.isUser ? "#007bff" : "#f1f3f4")};
+  color: ${(props) => (props.isUser ? "white" : "#333")};
+  font-size: 14px;
+  line-height: 1.4;
+`;
+
+export const ChatPanel = () => {
+  return (
+    <ChatPanelContainer>
+      <ChatMessages>
+        {/* Placeholder messages for now */}
+        <Message isUser={false}>
+          <MessageBubble isUser={false}>
+            Welcome to Overheard Engine! Start a conversation to control the
+            content.
+          </MessageBubble>
+        </Message>
+
+        <Message isUser={true}>
+          <MessageBubble isUser={true}>
+            Hello! This is a sample user message.
+          </MessageBubble>
+        </Message>
+      </ChatMessages>
+
+      <ChatInputWrapper>
+        <ChatInput />
+      </ChatInputWrapper>
+    </ChatPanelContainer>
+  );
+};
