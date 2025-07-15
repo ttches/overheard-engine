@@ -69,6 +69,7 @@ const MessageText = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 18px;
+  white-space: pre-wrap;
 `;
 
 const LoadingContainer = styled.div`
