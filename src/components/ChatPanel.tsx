@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { ChatInput } from "./ChatInput";
 import { InitialPrompt } from "./InitialPrompt";
@@ -96,10 +97,17 @@ const Spinner = styled.div`
 
 export const ChatPanel = () => {
   const { chatHistory, isLoading } = useChatHistoryContext();
+  const chatMessagesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatMessagesRef.current) {
+      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+    }
+  }, [chatHistory.length]);
 
   return (
     <ChatPanelContainer>
-      <ChatMessages>
+      <ChatMessages ref={chatMessagesRef}>
         {chatHistory.map((chatMessage) => (
           <Message key={chatMessage.id} isUser={chatMessage.isUser}>
             {chatMessage.pills ? (
