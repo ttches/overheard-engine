@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { nanoid } from "nanoid";
 import { usePostMessage } from "../../mutations/usePostMessage";
 import type { ChatMessage } from "../types/chat";
 import type { ChatResponse } from "../api";
@@ -16,9 +17,17 @@ const initialMessages: ChatMessage[] = [
 ];
 
 export const useChatHistory = () => {
-  const [chatHistory, setChatHistory] =
+  const [chatHistory, setChatHistory_unsafe] =
     useState<ChatMessage[]>(initialMessages);
   const [currentIframeUrl, setCurrentIframeUrl] = useState<string>("");
+
+  const setChatHistory = (newMessage: ChatMessage) => {
+    const messageWithId = {
+      ...newMessage,
+      id: newMessage.id || nanoid(),
+    };
+    setChatHistory_unsafe((prev) => [...prev, messageWithId]);
+  };
 
   const mutation = usePostMessage();
 
@@ -27,7 +36,7 @@ export const useChatHistory = () => {
       message,
       isUser: true,
     };
-    setChatHistory((prev) => [...prev, userMessage]);
+    setChatHistory(userMessage);
 
     mutation.mutate(message, {
       onSuccess: (apiResponse) => {
@@ -49,7 +58,7 @@ export const useChatHistory = () => {
           })),
         };
 
-        setChatHistory((prev) => [...prev, botMessage]);
+        setChatHistory(botMessage);
 
         if (apiResponse.redirect_url) {
           setCurrentIframeUrl(apiResponse.redirect_url);

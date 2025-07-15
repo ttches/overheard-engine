@@ -1,4 +1,5 @@
 export type ChatMessage = {
+  id?: string;
   message: string;
   isUser: boolean;
   header?: string;

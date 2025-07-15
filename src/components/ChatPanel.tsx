@@ -13,20 +13,18 @@ const ChatPanelContainer = styled.div`
   z-index: 1000;
   display: flex;
   flex-direction: column;
+  padding: 24px;
 `;
 
 const ChatMessages = styled.div`
   flex: 1;
   overflow-y: auto;
-  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 `;
 
-const ChatInputWrapper = styled.div`
-  padding: 24px;
-`;
+const ChatInputWrapper = styled.div``;
 
 const Message = styled.div<{ isUser: boolean }>`
   display: flex;
@@ -74,8 +72,8 @@ export const ChatPanel = () => {
   return (
     <ChatPanelContainer>
       <ChatMessages>
-        {chatHistory.map((chatMessage, index) => (
-          <Message key={index} isUser={chatMessage.isUser}>
+        {chatHistory.map((chatMessage) => (
+          <Message key={chatMessage.id} isUser={chatMessage.isUser}>
             <MessageBubble isUser={chatMessage.isUser}>
               {chatMessage.header && (
                 <MessageHeader>{chatMessage.header}</MessageHeader>
