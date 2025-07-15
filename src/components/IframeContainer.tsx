@@ -4,10 +4,9 @@ import { useChatHistoryContext } from "../hooks/useChatHistoryContext";
 const IframeWrapper = styled.div`
   position: fixed;
   top: 0;
-  left: 400px;
   right: 0;
   bottom: 0;
-  width: calc(100% - 400px);
+  width: calc(100% - 40px);
   height: 100vh;
 `;
 
