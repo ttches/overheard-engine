@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useChatHistoryContext } from "../context/ChatHistoryContext";
+import { useChatHistoryContext } from "../hooks/useChatHistoryContext";
 
 const IframeWrapper = styled.div`
   position: fixed;

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { ChatInput } from "./ChatInput";
 import { InitialPrompt } from "./InitialPrompt";
-import { useChatHistoryContext } from "../context/ChatHistoryContext";
+import { FilterMessage } from "./FilterMessage";
+import { useChatHistoryContext } from "../hooks/useChatHistoryContext";
 
 const ChatPanelContainer = styled.div`
   position: fixed;
@@ -74,12 +75,16 @@ export const ChatPanel = () => {
       <ChatMessages>
         {chatHistory.map((chatMessage) => (
           <Message key={chatMessage.id} isUser={chatMessage.isUser}>
-            <MessageBubble isUser={chatMessage.isUser}>
-              {chatMessage.header && (
-                <MessageHeader>{chatMessage.header}</MessageHeader>
-              )}
-              <MessageText>{chatMessage.message}</MessageText>
-            </MessageBubble>
+            {chatMessage.pills ? (
+              <FilterMessage chatMessage={chatMessage} />
+            ) : (
+              <MessageBubble isUser={chatMessage.isUser}>
+                {chatMessage.header && (
+                  <MessageHeader>{chatMessage.header}</MessageHeader>
+                )}
+                <MessageText>{chatMessage.message}</MessageText>
+              </MessageBubble>
+            )}
           </Message>
         ))}
       </ChatMessages>

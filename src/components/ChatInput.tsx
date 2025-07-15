@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Send from "../icons/Send";
 import Microphone from "../icons/Microphone";
 import Paperclip from "../icons/Paperclip";
-import { useChatHistoryContext } from "../context/ChatHistoryContext";
+import { useChatHistoryContext } from "../hooks/useChatHistoryContext";
 
 const ChatInputContainer = styled.div`
   display: flex;

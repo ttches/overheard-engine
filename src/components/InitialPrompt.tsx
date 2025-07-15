@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Sparkles from "../icons/Sparkles";
-import { useChatHistoryContext } from "../context/ChatHistoryContext";
+import { useChatHistoryContext } from "../hooks/useChatHistoryContext";
 
 const InitialPromptContainer = styled.div`
   display: flex;

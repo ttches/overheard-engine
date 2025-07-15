@@ -5,15 +5,15 @@ import type { ChatMessage } from "../types/chat";
 import type { ChatResponse } from "../api";
 
 const initialMessages: ChatMessage[] = [
-  // {
-  //   message:
-  //     "Welcome to Overheard Engine! Start a conversation to control the content.",
-  //   isUser: false,
-  // },
-  // {
-  //   message: "Hello! This is a sample user message.",
-  //   isUser: true,
-  // },
+  {
+    id: "test-filter-message",
+    message: "",
+    isUser: false,
+    header: "12 Jeep Rubicons",
+    pills: ["Jeep", "Rubicon", "4-door", "manual transmission"],
+    redirectUrl:
+      "https://www.carvana.com/cars/filters?cvnaid=eyJmaWx0ZXJzIjp7Im1ha2VzIjpbeyJuYW1lIjoiSmVlcCIsInBhcmVudE1vZGVscyI6W3sibmFtZSI6IldyYW5nbGVyIiwidHJpbXMiOlsiUnViaWNvbiJdfV19XX19",
+  },
 ];
 
 export const useChatHistory = () => {
@@ -70,6 +70,7 @@ export const useChatHistory = () => {
   return {
     chatHistory,
     currentIframeUrl,
+    setCurrentIframeUrl,
     sendMessage,
     isLoading: mutation.isPending,
     error: mutation.error,
