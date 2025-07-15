@@ -67,8 +67,35 @@ const MessageText = styled.div`
   line-height: 18px;
 `;
 
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  padding: 12px 0;
+`;
+
+const Spinner = styled.div`
+  width: 28px;
+  height: 28px;
+  margin-left: 16px;
+  border: 3px solid transparent;
+  border-top: 3px solid #4fc3f7;
+  border-right: 3px solid #4fc3f7;
+  border-bottom: 3px solid #4fc3f7;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
 export const ChatPanel = () => {
-  const { chatHistory } = useChatHistoryContext();
+  const { chatHistory, isLoading } = useChatHistoryContext();
 
   return (
     <ChatPanelContainer>
@@ -87,6 +114,11 @@ export const ChatPanel = () => {
             )}
           </Message>
         ))}
+        {isLoading && (
+          <LoadingContainer>
+            <Spinner />
+          </LoadingContainer>
+        )}
       </ChatMessages>
 
       {chatHistory.length === 0 && <InitialPrompt />}
