@@ -8,7 +8,7 @@ import { useChatHistoryContext } from "../hooks/useChatHistoryContext";
 const ChatInputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 87px;
+  min-height: 87px;
   padding: 16px;
   align-items: flex-start;
   align-self: stretch;
@@ -27,7 +27,7 @@ const ButtonContainer = styled.div`
   margin-top: auto;
 `;
 
-const TextInput = styled.input`
+const TextInput = styled.textarea`
   border: none;
   outline: none;
   background: transparent;
@@ -40,6 +40,12 @@ const TextInput = styled.input`
   padding: 0;
   margin: 0;
   width: 100%;
+  min-height: 20px;
+  max-height: 250px;
+  resize: none;
+  overflow-y: auto;
+  field-sizing: content;
+  font-family: inherit;
 `;
 
 const SendButton = styled.button`
@@ -91,19 +97,30 @@ export const ChatInput = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
       handleSendMessage();
+    }
+  };
+
+  const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    const textarea = e.currentTarget;
+    // Fallback for browsers that don't support field-sizing: content
+    if (!CSS.supports("field-sizing", "content")) {
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px";
     }
   };
 
   return (
     <ChatInputContainer>
       <TextInput
-        type="text"
         placeholder="Type your message..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
+        onInput={handleInput}
+        rows={1}
       />
       <ButtonContainer>
         <IconButton>
