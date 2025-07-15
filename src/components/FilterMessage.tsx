@@ -12,6 +12,7 @@ const FilterContainer = styled.div<{ isActive: boolean }>`
   display: flex;
   min-height: 48px;
   padding: 16px;
+  margin: 0;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
@@ -119,6 +120,8 @@ export const FilterMessage = ({ chatMessage }: FilterMessageProps) => {
   useEffect(() => {
     if (isActive) {
       setIsFiltersOpen(true);
+    } else {
+      setIsFiltersOpen(false);
     }
   }, [isActive]);
 

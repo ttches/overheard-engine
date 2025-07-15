@@ -18,6 +18,7 @@ export type ChatMessage = {
 export type ChatResponse = ChatMessage[];
 
 let theatreCallCount = 0;
+let isInTheatreMode = false;
 
 const theatreMessages = [
   [
@@ -27,11 +28,33 @@ const theatreMessages = [
         "It sounds like you really know what you're looking for. Currently, there are 0 vehicles matching your criteria, but we have plenty of time to find your ideal vehicle! We get new arrivals everyday so we'll keep you updated when we get an exact match, but in the meantime, consider broadening your search.",
     },
     {
-      header: "12 Jeep Rubicons",
+      header: "0 Jeep Rubicons",
       pills: ["Jeep", "Rubicon", "4-door", "manual transmission"],
       redirect_url:
-        "https://www.carvana.com/cars/filters?cvnaid=eyJmaWx0ZXJzIjp7Im1ha2VzIjpbeyJuYW1lIjoiSmVlcCIsInBhcmVudE1vZGVscyI6W3sibmFtZSI6IldyYW5nbGVyIiwidHJpbXMiOlsiUnViaWNvbiJdfV19XX19",
+        "https://www.carvana.com/cars/filters?cvnaid=eyJmaWx0ZXJzIjp7Im1ha2VzIjpbeyJuYW1lIjoiSmVlcCIsInBhcmVudE1vZGVscyI6W3sibmFtZSI6IldyYW5nbGVyIiwidHJpbXMiOlsiUnViaWNvbiJdfV19XSwib2ZmZXJpbmdzIjpbIk5ldyJdLCJib2R5U3R5bGVzIjpbIlN1diJdLCJmdWVsVHlwZXMiOlsiRGllc2VsIl19fQ",
       response: "",
+    },
+  ],
+  [
+    {
+      header: "Great, thanks!",
+      response: "I've removed the fuel type so that we're",
+    },
+    {
+      header: "394 Jeep Rubicons",
+      pills: ["Jeep", "Rubicon", "4-door", "manual transmission"],
+      redirect_url:
+        "https://www.carvana.com/cars/filters?cvnaid=eyJmaWx0ZXJzIjp7InRyYW5zbWlzc2lvbnMiOlsiTWFudWFsIl0sIm1ha2VzIjpbeyJuYW1lIjoiSmVlcCJ9XX19",
+      response: "",
+    },
+    {
+      response: `I've saved your preferences in your profile. I'll send you Jeep Rubicon listings that match everything you asked for. I'll also keep an eye on:
+        
+        \n\n• Diesel + manual matches
+        \n• Gas + manual
+        \n• Price drops or new listings that check all your boxes
+        
+        \n\nWould you like me to notify you via text, email, or both when new matches or price changes pop up?`,
     },
   ],
 ];
@@ -46,6 +69,7 @@ const handleTheatreMode = async (message: string): Promise<ChatResponse> => {
     return messages;
   }
 
+  isInTheatreMode = false;
   theatreCallCount = 0;
   return mockFetch(message);
 };
@@ -66,9 +90,14 @@ const mockFetch = async (message: string): Promise<ChatResponse> => {
 };
 
 export const postMessage = async (message: string): Promise<ChatResponse> => {
-  const isTheatreMode = message.toLowerCase().includes("jeep");
+  const startsTheatreMode = message.toLowerCase().includes("jeep rubicon");
 
-  if (isTheatreMode) {
+  if (startsTheatreMode && !isInTheatreMode) {
+    isInTheatreMode = true;
+    theatreCallCount = 0;
+  }
+
+  if (isInTheatreMode) {
     return handleTheatreMode(message);
   }
 

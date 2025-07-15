@@ -37,7 +37,7 @@ const MessageBubble = styled.div<{ isUser: boolean }>`
   max-width: ${(props) => (props.isUser ? "300px" : "100%")};
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: ${(props) => (props.isUser ? "16px" : "16px 0")};
   justify-content: center;
   align-items: ${(props) => (props.isUser ? "center" : "flex-start")};
   border-radius: ${(props) => (props.isUser ? "8px" : "0px")};
