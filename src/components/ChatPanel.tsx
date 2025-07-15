@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ChatInput } from "./ChatInput";
 import { InitialPrompt } from "./InitialPrompt";
 import { FilterMessage } from "./FilterMessage";
+import { LinkButton } from "./LinkButton";
 import { useChatHistoryContext } from "../hooks/useChatHistoryContext";
 
 const ChatPanelContainer = styled.div`
@@ -111,18 +112,30 @@ export const ChatPanel = () => {
     <ChatPanelContainer>
       <ChatMessages ref={chatMessagesRef}>
         {chatHistory.map((chatMessage) => (
-          <Message key={chatMessage.id} isUser={chatMessage.isUser}>
-            {chatMessage.pills ? (
-              <FilterMessage chatMessage={chatMessage} />
-            ) : (
-              <MessageBubble isUser={chatMessage.isUser}>
-                {chatMessage.header && (
-                  <MessageHeader>{chatMessage.header}</MessageHeader>
-                )}
-                <MessageText>{chatMessage.message}</MessageText>
-              </MessageBubble>
-            )}
-          </Message>
+          <div key={chatMessage.id}>
+            <Message isUser={chatMessage.isUser}>
+              {chatMessage.pills ? (
+                <FilterMessage chatMessage={chatMessage} />
+              ) : (
+                <MessageBubble isUser={chatMessage.isUser}>
+                  {chatMessage.header && (
+                    <MessageHeader>{chatMessage.header}</MessageHeader>
+                  )}
+                  <MessageText>{chatMessage.message}</MessageText>
+                </MessageBubble>
+              )}
+            </Message>
+            {chatMessage.buttons?.map((button, index) => (
+              <div
+                key={`${chatMessage.id}-button-${index}`}
+                style={{ marginTop: index === 0 ? "8px" : "8px" }}
+              >
+                <Message isUser={false}>
+                  <LinkButton chatMessage={chatMessage} button={button} />
+                </Message>
+              </div>
+            ))}
+          </div>
         ))}
         {isLoading && (
           <LoadingContainer>

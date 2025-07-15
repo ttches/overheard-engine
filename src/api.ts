@@ -37,10 +37,6 @@ const theatreMessages = [
   ],
   [
     {
-      header: "Great, thanks!",
-      response: "I've removed the fuel type so that we're",
-    },
-    {
       header: "394 Jeep Rubicons",
       pills: ["Jeep", "Rubicon", "4-door", "manual transmission"],
       redirect_url:
@@ -55,6 +51,38 @@ const theatreMessages = [
         \n• Price drops or new listings that check all your boxes
         
         \n\nWould you like me to notify you via text, email, or both when new matches or price changes pop up?`,
+      buttons: [
+        {
+          display_text: "2024 or newer",
+          badge: {
+            display_text: "3",
+          },
+          action: {
+            redirect_url:
+              "https://www.carvana.com/cars/filters?cvnaid=eyJmaWx0ZXJzIjp7InllYXIiOnsibWluIjoyMDI0fSwibWFrZXMiOlt7Im5hbWUiOiJKZWVwIiwicGFyZW50TW9kZWxzIjpbeyJuYW1lIjoiV3JhbmdsZXIiLCJ0cmltcyI6WyJSdWJpY29uIl19XX1dfSwic29ydEJ5IjoiTmV3ZXN0SW52ZW50b3J5In0",
+          },
+        },
+        {
+          display_text: "30,000 miles or less",
+          badge: {
+            display_text: "12",
+          },
+          action: {
+            redirect_url:
+              "https://www.carvana.com/cars/filters?cvnaid=eyJmaWx0ZXJzIjp7Im1pbGVhZ2UiOnsibWF4IjozMDAwMH0sIm1ha2VzIjpbeyJuYW1lIjoiSmVlcCIsInBhcmVudE1vZGVscyI6W3sibmFtZSI6IldyYW5nbGVyIiwidHJpbXMiOlsiUnViaWNvbiJdfV19XX0sInNvcnRCeSI6Ik5ld2VzdEludmVudG9yeSJ9",
+          },
+        },
+        {
+          display_text: "Manual transmission",
+          badge: {
+            display_text: "5",
+          },
+          action: {
+            redirect_url:
+              "https://www.carvana.com/cars/filters?cvnaid=eyJmaWx0ZXJzIjp7InRyYW5zbWlzc2lvbnMiOlsiTWFudWFsIl0sIm1ha2VzIjpbeyJuYW1lIjoiSmVlcCIsInBhcmVudE1vZGVscyI6W3sibmFtZSI6IldyYW5nbGVyIiwidHJpbXMiOlsiUnViaWNvbiJdfV19XX0sInNvcnRCeSI6Ik5ld2VzdEludmVudG9yeSJ9",
+          },
+        },
+      ],
     },
   ],
 ];
@@ -64,9 +92,11 @@ const handleTheatreMode = async (message: string): Promise<ChatResponse> => {
   await new Promise((resolve) => setTimeout(resolve, delay));
 
   if (theatreCallCount < theatreMessages.length) {
-    const messages = theatreMessages[theatreCallCount];
+    const nextMessage = theatreMessages[theatreCallCount];
+    console.log(JSON.stringify(nextMessage, null, "\t"));
+
     theatreCallCount++;
-    return messages;
+    return nextMessage;
   }
 
   isInTheatreMode = false;
