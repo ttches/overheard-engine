@@ -26,7 +26,9 @@ const ChatMessages = styled.div`
   gap: 12px;
 `;
 
-const ChatInputWrapper = styled.div``;
+const ChatInputWrapper = styled.div`
+  padding-top: 16px;
+`;
 
 const Message = styled.div<{ isUser: boolean }>`
   display: flex;
