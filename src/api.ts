@@ -1,4 +1,4 @@
-import defaultTheatreMessages from "../scripts/default";
+import finalTheatreMessages from "../scripts/final";
 
 export type ChatMessage = {
   header?: string;
@@ -22,7 +22,7 @@ export type ChatResponse = ChatMessage[];
 let theatreCallCount = 0;
 let isInTheatreMode = false;
 
-const theatreMessages = defaultTheatreMessages;
+const theatreMessages = finalTheatreMessages;
 
 const handleTheatreMode = async (message: string): Promise<ChatResponse> => {
   const delay = Math.random() * 3000 + 2000;
